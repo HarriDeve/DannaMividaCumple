@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>¡Feliz Cumpleaños Mi Amor! 🍮✨ Mundo Pompompurin</title>
+
+  <!-- Meta tags SEO / Social -->
+  <meta name="description"
+    content="Una sorpresa mágica de cumpleaños llena de amor, regalitos y la ternura de Pompompurin.">
+  <meta name="theme-color" content="#FFED85">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/jpeg" href="assets/favicon.jpg">
+
+  <!-- Google Fonts: Fredoka (Kawaii display), Nunito (Legible body), Sacramento (Romantic cursive) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&family=Sacramento&display=swap"
+    rel="stylesheet">
+
+  <!-- Confetti library CDN (with built-in offline fallback) -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- Floating Background Elements -->
+  <div class="floating-stickers-container" id="floatingStickers" aria-hidden="true"></div>
+
+  <!-- Intro Screen / Magic Curtain -->
+  <div id="introCurtain" class="intro-curtain">
+    <div class="intro-card">
+      <div class="intro-mascot">
+        <img src="assets/hero.jpg" alt="Pompompurin con pastel" class="intro-img">
+        <span class="intro-sparkle">✨</span>
+      </div>
+      <div class="intro-badge">💌 Tienes una sorpresa especial</div>
+      <h1 class="intro-title">¡Feliz Cumpleaños, Mi Wapetona Hermosa!</h1>
+      <p class="intro-subtitle">Pompompurin y yo preparamos un bonito regalo para celebrar este lindo día</p>
+
+      <button id="btnStartMagic" class="btn-magic-start">
+        <span class="btn-icon">🍮</span>
+        <span class="btn-text">Toca aquí para abrir tu sorpresa</span>
+        <span class="btn-sparkle">💖</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Top Floating Controls (Music Player & Customizer) -->
+  <header class="top-nav">
+    <div class="nav-brand">
+      <img src="assets/favicon.jpg" alt="Icono Pompompurin" class="brand-avatar">
+      <span class="brand-text">Pompompurin & Tú</span>
+    </div>
+
+    <div class="nav-actions">
+      <!-- Music Player Widget -->
+      <div class="music-widget" id="musicWidget">
+        <div class="vinyl-disc" id="vinylDisc">
+          <img src="assets/favicon.jpg" alt="Disco musical" class="vinyl-img">
+        </div>
+        <div class="music-info">
+          <span class="music-track-title" id="musicTrackTitle">Carefree OST 🎵</span>
+          <div class="eq-bars" id="eqBars">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+          </div>
+        </div>
+        <button id="btnToggleMusic" class="btn-music-toggle" aria-label="Reproducir o pausar música"
+          title="Pausar / Reproducir">
+          <span id="musicIcon">▶</span>
+        </button>
+        <button id="btnSwitchMusicSource" class="btn-music-source" aria-label="Cambiar tipo de música"
+          title="Cambiar a Cajita de Música Mágica">
+          ✨
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hidden native audio element -->
+  <audio id="bgAudio" src="assets/bgm.mp3" loop preload="auto"></audio>
+
+  <!-- Main Container -->
+  <main class="main-content">
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="hero">
+      <div class="hero-banner">
+        <div class="birthday-pill">🎉 ¡Feliz cumple al amor de mi vida! ✨</div>
+        <h1 class="hero-greeting">
+          ¡Feliz Cumpleaños, <br>
+          <span class="highlight-name" id="displayGirlfriendName">Mi Macarroncito</span>! 🍮💛
+        </h1>
+        <p class="hero-dedication" id="displaySubtitle">
+          Te amo mucho mi cielito lindo, espero que hayas tenido un lindo día y que te guste el humilde detalle
+        </p>
+
+        <!-- Interactive Mascot Display -->
+        <div class="mascot-wrapper">
+          <div class="mascot-speech-bubble" id="mascotBubble">
+            ¡Haz clic en mí para un apapacho! 🍮✨
+          </div>
+          <div class="mascot-image-container" id="interactiveMascot">
+            <img src="assets/hero.jpg" alt="Pompompurin feliz cumpleaños" class="hero-mascot-img">
+            <div class="floating-pudding-badge">🍮 Flan de Cumple</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Love Letter Section -->
+    <section class="letter-section" id="carta">
+      <div class="section-badge">🎀 Con todo mi amor</div>
+      <h2 class="section-title">Una Carta Para Ti</h2>
+
+      <div class="envelope-container" id="envelopeWrapper">
+        <div class="envelope" id="envelopeCard">
+          <div class="envelope-front">
+            <div class="envelope-seal" id="envelopeSeal" title="Haz clic para abrir">
+              <span class="seal-icon">🍮</span>
+              <span class="seal-label">Abrir Carta</span>
+            </div>
+            <div class="envelope-to">Para la dueña de mi Kokorito 💌</div>
+          </div>
+        </div>
+
+        <!-- The actual unfolded letter -->
+        <div class="letter-paper" id="letterPaper">
+          <div class="letter-header">
+            <span class="letter-date" id="displayDate">Hoy y Siempre ✨</span>
+            <span class="letter-pompom">🐾</span>
+          </div>
+          <div class="letter-body" id="displayLetterBody">
+            <p><strong>Mi amor lindo,</strong></p>
+            <p>
+              Hoy mamor te quiero decir que te amo mucho, que borres cassete y sigas avanzando como vas
+              Estoy muy orgulloso de ti y no sabes cuanto te amo, eres increíble mi cielo y quiero hacer que sea un día
+              lindo
+            </p>
+            <p>
+              Gracias por tu risa contagiosa, por tu dulzura infinita y por hacerme la persona más afortunada al tenerte
+              a mi lado, gracias por haberme escrito ese día y por seguir aqui, no sabes cuanto lo aprecio y amo cada
+              dia que paso contigo
+            </p>
+            <p>
+              ¡Te amo con todo mi corazón y quiero seguir celebrando cada uno de tus cumpleaños tomándote de la garrita!
+              💛🍮
+            </p>
+          </div>
+          <div class="letter-sign">
+            <span>Con amor infinito,</span>
+            <strong class="letter-author" id="displayBoyfriendName">Tu Miope Fav sjjs 💛</strong>
+          </div>
+          <button id="btnCloseLetter" class="btn-close-letter">Cerrar carta ✉️</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gifts Section -->
+    <section class="gifts-section" id="regalos">
+      <div class="section-header-box">
+        <div class="section-badge">🎁 Momentos Especiales</div>
+        <h2 class="section-title">Tus Regalitos de Cumpleaños</h2>
+        <p class="section-subtitle">
+          Toca cada cajita para desenvolver tus regalos sorpresa. ¡Abre todos para desbloquear el pastel final!
+        </p>
+
+        <!-- Progress Tracker -->
+        <div class="progress-bar-container">
+          <div class="progress-info">
+            <span class="progress-label">Regalos abiertos:</span>
+            <span class="progress-count" id="unboxedCount">0 de 4</span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gifts Grid (4 items) -->
+      <div class="gifts-grid">
+
+        <!-- GIFT 1: FLORES -->
+        <div class="gift-card" id="giftCard-flores" data-gift="flores">
+          <div class="gift-box-visual">
+            <img src="assets/gift_box.jpg" alt="Caja de regalo Flores" class="gift-box-img">
+            <div class="gift-ribbon-tag">Regalo #1 🌸</div>
+            <div class="gift-status-badge">Toca para abrir ✨</div>
+          </div>
+          <div class="gift-card-content">
+            <h3 class="gift-name">Ramo de Flores Eternas</h3>
+            <p class="gift-hint">Tan coloridas y hermosas como tú...</p>
+            <button class="btn-open-gift" data-gift="flores">
+              <span>Abrir Regalo 🎁</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- GIFT 2: CHOCOLATE -->
+        <div class="gift-card" id="giftCard-chocolate" data-gift="chocolate">
+          <div class="gift-box-visual">
+            <img src="assets/gift_box.jpg" alt="Caja de regalo Chocolate" class="gift-box-img">
+            <div class="gift-ribbon-tag">Regalo #2 🍫</div>
+            <div class="gift-status-badge">Toca para abrir ✨</div>
+          </div>
+          <div class="gift-card-content">
+            <h3 class="gift-name">Cajita de Chocolates</h3>
+            <p class="gift-hint">Para la niña más dulce de todas...</p>
+            <button class="btn-open-gift" data-gift="chocolate">
+              <span>Abrir Regalo 🎁</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- GIFT 3: CELULAR -->
+        <div class="gift-card" id="giftCard-celular" data-gift="celular">
+          <div class="gift-box-visual">
+            <img src="assets/gift_box.jpg" alt="Caja de regalo Celular" class="gift-box-img">
+            <div class="gift-ribbon-tag">Regalo #3 📱</div>
+            <div class="gift-status-badge">Toca para abrir ✨</div>
+          </div>
+          <div class="gift-card-content">
+            <h3 class="gift-name">Un Celular Especial</h3>
+            <p class="gift-hint">¡Muy pronto en tus manitas, te lo prometo! 📱✨</p>
+            <button class="btn-open-gift" data-gift="celular">
+              <span>Abrir Regalo 🎁</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- GIFT 4: CAPIBARA -->
+        <div class="gift-card" id="giftCard-capibara" data-gift="capibara">
+          <div class="gift-box-visual">
+            <img src="assets/gift_box.jpg" alt="Caja de regalo Capibara" class="gift-box-img">
+            <div class="gift-ribbon-tag">Regalo #4 🐾</div>
+            <div class="gift-status-badge">Toca para abrir ✨</div>
+          </div>
+          <div class="gift-card-content">
+            <h3 class="gift-name">Un Amiguito Capibara</h3>
+            <p class="gift-hint">El ser más tierno y relajado...</p>
+            <button class="btn-open-gift" data-gift="capibara">
+              <span>Abrir Regalo 🎁</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Grand Finale Section (Cake & Wish) -->
+    <section class="finale-section" id="granFinal">
+      <div class="finale-card" id="finaleCard">
+        <div class="lock-overlay" id="finaleLock">
+          <div class="lock-icon">🔒</div>
+          <h3 class="lock-title">Sorpresa Dorada Bloqueada</h3>
+          <p class="lock-text">¡Abre los 4 regalos para encender el pastel de cumpleaños!</p>
+        </div>
+
+        <div class="finale-content" id="finaleContent">
+          <div class="section-badge">🎂 Momento del Deseo</div>
+          <h2 class="finale-title">¡El Pastel de Cumpleaños de Pompompurin!</h2>
+          <p class="finale-subtitle">
+            Cierra tus ojos, piensa en tu deseo más anhelado para este año... ¡y haz clic en la velita para soplarla!
+            🕯️✨
+          </p>
+
+          <div class="cake-display">
+            <div class="interactive-candle" id="interactiveCandle" title="Haz clic en la velita para soplar">
+              <div class="flame" id="flame"></div>
+              <div class="candle-wick"></div>
+              <div class="candle-stick"></div>
+            </div>
+            <img src="assets/hero.jpg" alt="Pastel con Pompompurin" class="finale-cake-img">
+          </div>
+
+          <button id="btnBlowCandle" class="btn-blow-candle">
+            <span>💨 Soplar la Velita</span>
+          </button>
+
+          <div class="wish-reveal" id="wishReveal">
+            <h3>🎉 ¡Deseo Enviado al Universo! 🎉</h3>
+            <p>
+              ¡Que la vida te conceda cada sueño, sonrisa y alegría que mereces! Te amo con todo mi kokorito, mi
+              Macarroncito hermosa. 💛🍮
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MODALS FOR THE 4 GIFTS -->
+
+  <!-- Modal 1: FLORES -->
+  <div class="gift-modal" id="modal-flores" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-backdrop"></div>
+    <div class="modal-dialog">
+      <button class="modal-close" data-close="modal-flores" aria-label="Cerrar modal">&times;</button>
+      <div class="modal-header">
+        <span class="modal-badge">🌸 Regalo Desbloqueado</span>
+        <h3 class="modal-title">Un Ramo de Flores Para Ti</h3>
+      </div>
+      <div class="modal-body">
+        <div class="modal-image-wrapper">
+          <img src="assets/flores.jpg" alt="Ramo de flores hermosas" class="modal-illustration">
+        </div>
+        <div class="modal-text-content">
+          <p class="modal-quote">
+            "Flores tan hermosas, radiantes y delicadas como tu sonrisa. Cada pétalo guarda una razón por la que eres la
+            persona más especial de mi vida."
+          </p>
+          <div class="flower-meaning-cards">
+            <div class="flower-tag">🌷 Tulipanes de ternura</div>
+            <div class="flower-tag">🌹 Hortencias tus favoritas</div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-interactive-action" id="btnShowerPetals">
+          🌸 ¡Hacer llover flores y pétalos!
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 2: CHOCOLATE -->
+  <div class="gift-modal" id="modal-chocolate" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-backdrop"></div>
+    <div class="modal-dialog">
+      <button class="modal-close" data-close="modal-chocolate" aria-label="Cerrar modal">&times;</button>
+      <div class="modal-header">
+        <span class="modal-badge">🍫 Regalo Desbloqueado</span>
+        <h3 class="modal-title">Caja de Chocolates de Amor</h3>
+      </div>
+      <div class="modal-body">
+        <div class="modal-image-wrapper">
+          <img src="assets/chocolates.jpg" alt="Caja de chocolates kawaii" class="modal-illustration">
+        </div>
+        <div class="modal-text-content">
+          <p class="modal-quote">
+            ¡Toca cada bombón para comértelo y leer una frase dulce que tengo guardada para ti! 🍮😋
+          </p>
+          <div class="chocolates-interactive-grid" id="chocolatesGrid">
+            <!-- 6 clickable chocolates generated dynamically -->
+          </div>
+          <div class="chocolate-note-box" id="chocolateNoteBox">
+            <span class="choco-emoji">💌</span>
+            <span class="choco-text" id="chocolateNoteText">Haz clic en cualquier chocolate para probarlo...</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <span class="chocolates-eaten-counter" id="chocolatesEatenCounter">Chocolates probados: 0 de 6</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 3: CELULAR -->
+  <div class="gift-modal" id="modal-celular" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-backdrop"></div>
+    <div class="modal-dialog modal-dialog-phone">
+      <button class="modal-close" data-close="modal-celular" aria-label="Cerrar modal">&times;</button>
+      <div class="modal-header">
+        <span class="modal-badge">📱 Regalo Desbloqueado</span>
+        <h3 class="modal-title">Un Celular Especial Para Ti</h3>
+      </div>
+      <div class="modal-body modal-body-phone">
+        <!-- Interactive Smartphone UI Mockup -->
+        <div class="phone-device">
+          <div class="phone-ears" aria-hidden="true"></div>
+          <div class="phone-topbar">
+            <span class="phone-time">10:10 AM</span>
+            <div class="phone-notch"></div>
+            <div class="phone-status">
+              <span>📶 5G</span>
+              <span>🔋 100% Amor</span>
+            </div>
+          </div>
+
+          <div class="phone-screen">
+            <!-- Chat screen -->
+            <div class="chat-header">
+              <div class="chat-contact-avatar">🍮</div>
+              <div class="chat-contact-info">
+                <strong class="contact-name" id="chatContactName">Mi Amor 💛</strong>
+                <span class="contact-status">En línea siempre para ti</span>
+              </div>
+            </div>
+
+            <div class="chat-messages" id="chatMessages">
+              <div class="message-bubble received">
+                ¡Hola mi Macarroncito hermosa! 🥺🎂🎉
+                <span class="msg-time">10:09 AM</span>
+              </div>
+              <div class="message-bubble received">
+                ¡Feliz cumpleaños amor! Y esto no es solo un regalito en la pantalla... ¡es 100% real que muy pronto vas
+                a tener tu celular nuevo en tus manitas! Te lo prometo mi cielo 📱💛
+                <span class="msg-time">10:09 AM</span>
+              </div>
+              <div class="message-bubble received audio-bubble">
+                <button class="btn-play-voice" id="btnPlayVoice">
+                  <span class="voice-icon">▶</span>
+                  <div class="voice-waves">
+                    <span></span><span></span><span></span><span></span><span></span><span></span>
+                  </div>
+                  <span class="voice-duration">0:14</span>
+                </button>
+                <div class="voice-transcript" id="voiceTranscript" style="display:none;">
+                  "Te amo demasiado mi vida... ¡muy prontito tendrás tu cel nuevo para llenarlo de fotitos juntitos!"
+                </div>
+                <span class="msg-time">10:10 AM</span>
+              </div>
+              <div class="message-bubble received">
+                Eres mi notificación favorita de todos los días 💛✨ ¡Para que siempre estemos hablando y llamándonos
+                jijiji!
+                <span class="msg-time">10:10 AM</span>
+              </div>
+            </div>
+
+            <!-- Photos / Polaroids Tab -->
+            <div class="phone-gallery-section">
+              <div class="gallery-title">📸 Galería de Recuerdos</div>
+              <div class="polaroid-row">
+                <div class="mini-polaroid">
+                  <img src="assets/hero.jpg" alt="Momento dulce">
+                  <span>Tu Día Especial</span>
+                </div>
+                <div class="mini-polaroid">
+                  <img src="assets/capibara.jpg" alt="Abrazos">
+                  <span>Mimos y Amor</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="phone-home-indicator"></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <p class="phone-modal-hint">💬 ¡Promesa de celular nuevo muy pronto para ti! 📱💛</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 4: CAPIBARA -->
+  <div class="gift-modal" id="modal-capibara" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-backdrop"></div>
+    <div class="modal-dialog">
+      <button class="modal-close" data-close="modal-capibara" aria-label="Cerrar modal">&times;</button>
+      <div class="modal-header">
+        <span class="modal-badge">🐾 Regalo Desbloqueado</span>
+        <h3 class="modal-title">Tu Compañero Capibara</h3>
+      </div>
+      <div class="modal-body">
+        <div class="modal-image-wrapper capibara-wrapper" id="capibaraPetArea">
+          <img src="assets/capibara.jpg" alt="Capibara con gorrito de Pompompurin"
+            class="modal-illustration capibara-img" id="capibaraImg">
+          <div class="capibara-floating-hearts" id="capibaraHearts"></div>
+        </div>
+
+        <div class="modal-text-content">
+          <!-- Official Certificate -->
+          <div class="capibara-certificate">
+            <div class="cert-ribbon">📜 Certificado Oficial de Adopción</div>
+            <h4 class="cert-pet-name">Capibara (Viene desde Malasia por eso no nos pudo acompañar hoy) 🍮🐾</h4>
+            <ul class="cert-features">
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-interactive-action" id="btnPetCapibara">
+          <span>🥰 Acariciar al nuevo integrante de nuestra familia</span>
+          <span class="pet-count-badge" id="petCountBadge">0 caricias</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: FINALE UNLOCKED CELEBRATION -->
+  <div class="gift-modal" id="modal-finale-unlocked" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-backdrop"></div>
+    <div class="modal-dialog">
+      <button class="modal-close" data-close="modal-finale-unlocked" aria-label="Cerrar modal">&times;</button>
+      <div class="modal-header">
+        <span class="modal-badge">🎉 ¡Todos los Regalos Abiertos!</span>
+        <h3 class="modal-title">¡Desbloqueaste el Pastel de Cumpleaños! 🎂✨</h3>
+      </div>
+      <div class="modal-body" style="text-align: center;">
+        <div class="modal-image-wrapper">
+          <img src="assets/hero.jpg" alt="Pompompurin con pastel" class="modal-illustration">
+        </div>
+        <p class="modal-quote">
+          ¡Felicidades mi Macarroncito! Abriste todos tus regalitos y Pompompurin ya encendió la velita de cumpleaños.
+          ¡Vamos a pedir tu deseo con todo el corazón! 🕯️🍮💛
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-interactive-action" id="btnGoToCake">
+          🎂 ¡Ir a soplar la velita y pedir mi deseo!
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="page-footer">
+    <div class="footer-pompom-paws">🐾 🍮 🐾 🍮 🐾</div>
+    <p class="footer-love-text">
+      Hecho con todo el amor del mundo para <span id="footerGirlfriendName">Mi Macarroncito</span> 💛
+    </p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+
+</html>
